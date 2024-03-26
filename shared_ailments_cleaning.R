@@ -1,5 +1,3 @@
-# next, select individual columns (age, sex) in batch 2 data
-
 
 rm(list = ls())
 
