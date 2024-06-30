@@ -13,7 +13,7 @@ This script performs preliminary cleaning of the consumption data. It will be up
 this is the clean ailment data (long format) from 2011 to 2021.<br>
 2. panel.RData<br>
 this is the clean panel data.<br>
-3. gini_5yEst.csv<br>
+3. gini.RData<br>
 zip code Gini coefficients for the years 2011 to 2021 (5-year estimates)<br>
 4. **ailments_merge.RData** <br>
 **merged data** of ailments data, panel data and Gini data. 
