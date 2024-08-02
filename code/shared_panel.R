@@ -28,20 +28,20 @@ import_hholds <- function(year) {
         Household_Cd = 'factor',
         Household_Income = 'character',
         Household_Size = 'numeric',
-        Type_Of_Residence = 'factor',
-        Household_Composition = 'factor',
-        Age_And_Presence_Of_Children = 'factor',
-        Male_Head_Age = 'factor',
-        Female_Head_Age = 'factor',
-        Male_Head_Employment = 'factor',
-        Female_Head_Employment = 'factor',
-        Male_Head_Education = 'factor',
-        Female_Head_Education = 'factor',
-        Marital_Status = 'factor',
-        Race = 'factor',
-        Panelist_ZipCd = 'factor',
-        Fips_State_Cd = 'factor',
-        Fips_County_Cd = 'factor'
+        Type_Of_Residence = 'character',
+        Household_Composition = 'character',
+        Age_And_Presence_Of_Children = 'character',
+        Male_Head_Age = 'character',
+        Female_Head_Age = 'character',
+        Male_Head_Employment = 'character',
+        Female_Head_Employment = 'character',
+        Male_Head_Education = 'character',
+        Female_Head_Education = 'character',
+        Marital_Status = 'character',
+        Race = 'character',
+        Panelist_ZipCd = 'character',
+        Fips_State_Cd = 'character',
+        Fips_County_Cd = 'character'
       )
     )
     
@@ -67,20 +67,20 @@ import_hholds <- function(year) {
         household_code = 'factor',
         household_income = 'character',
         household_size = 'numeric',
-        type_of_residence = 'factor',
-        household_composition = 'factor',
-        age_and_presence_of_children = 'factor',
-        male_head_age = 'factor',
-        female_head_age = 'factor',
-        male_head_employment = 'factor',
-        female_head_employment = 'factor',
-        male_head_education = 'factor',
-        female_head_education = 'factor',
-        marital_status = 'factor',
-        race = 'factor',
-        panelist_zip_code = 'factor',
-        fips_state_code = 'factor',
-        fips_county_code = 'factor'
+        type_of_residence = 'character',
+        household_composition = 'character',
+        age_and_presence_of_children = 'character',
+        male_head_age = 'character',
+        female_head_age = 'character',
+        male_head_employment = 'character',
+        female_head_employment = 'character',
+        male_head_education = 'character',
+        female_head_education = 'character',
+        marital_status = 'character',
+        race = 'character',
+        panelist_zip_code = 'character',
+        fips_state_code = 'character',
+        fips_county_code = 'character'
       )
     )
     
@@ -333,7 +333,7 @@ import_hholds <- function(year) {
 
 # Import data -------------------------------------------------------------
 
-df <- pblapply(c(2004:2005), import_hholds) %>% 
+df <- pblapply(c(2004:2020), import_hholds) %>% 
   rbindlist(use.names = F, idcol = T)
 
 df[, .id := factor(.id + 2003)]
@@ -344,8 +344,9 @@ setnames(df,'panelist_zipcd','zip')
 setnames(df,'fips_county_cd','county')
 setnames(df,'fips_state_cd','state')
 
-df$state <- formatC(df$state,width=2,flag = "0")
-df$county <- formatC(df$county,width=3,flag = "0")
+df[, state := sprintf("%02d", as.numeric(state))]
+df[, county := sprintf("%03d", as.numeric(county))]
+
 df$county <- paste0(df$state, df$county)
 
 panel <- df
@@ -384,6 +385,7 @@ panel[, c("female_age_midpoint", "male_age_midpoint") :=
 
 panel[, mean_head_age := rowMeans(.SD, na.rm = TRUE), 
       .SDcols = c("female_age_midpoint", "male_age_midpoint")]
+
 
 panel[, c("female_age_midpoint", "male_age_midpoint") := NULL]
 
