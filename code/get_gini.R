@@ -3,14 +3,12 @@
 
 rm(list = ls())
 
-library(readxl)
-library(readr)
-library(stringr)
-library(data.table)
-library(pbapply)
+
 library(dplyr)
-library(tidyr)
 library(tidycensus)
+
+# Set API key
+census_api_key("your_api_key_here")
 
 
 # might need to divide the data into separate year groups due to API limit
