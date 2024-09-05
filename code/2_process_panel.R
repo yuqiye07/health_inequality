@@ -103,13 +103,7 @@ import_hholds <- function(year) {
     `$50,000-$59,999`   = '21',
     `$60,000-$69,999`   = '23',
     `$70,000-$99,999`   = '26',
-    `$100,000+`         = '27',
-    #in 2006-2009 data, the income range are coded more specifically for income above $100k. 
-    #To maintain consistency with other years, I have labeled all such incomes as '$100,000+'.
-    `$100,000+`         = '28',
-    `$100,000+`         = '29',
-    `$100,000+`         = '30'
-
+    `$100,000+`         = '27'
   )
   
   hholds[
