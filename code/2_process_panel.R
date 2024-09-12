@@ -1,3 +1,5 @@
+# this script cleans and processes the household panel data
+
 library(dplyr)
 library(data.table)
 library(pbapply)
