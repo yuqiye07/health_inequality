@@ -92,6 +92,12 @@ get_scs <- function(i){
            allow.cartesian = T,
            nomatch = 0L] 
   
+  df_ppu <- df_ppu[!is.na(ppu)]
+  
+  # rescale ppu using min max standardisation
+  df_ppu[, ppu_normalized := (ppu - min(ppu)) / (max(ppu) - min(ppu)), 
+         by = product_module_descr]
+  
   # remove households whose shopping trips are less than 20 or consumed items 
   # are less than 100 in a year, around 1% households are removed
   hh_to_remove <- df[,.(hh_trips = uniqueN(trip_code_uc)),
